@@ -42,10 +42,6 @@ void draw(){
 }
 
 void keyPressed(){
-  println(key);
-  if (key == 'c'){    
-    println(clear_bg_flag);
-    clear_bg_flag = (clear_bg_flag) ? false : true;
-    println(clear_bg_flag);    
-  }   
+  if (key == 'c')
+    clear_bg_flag = (clear_bg_flag) ? false : true;    //toggle the clear background flag 
 }
