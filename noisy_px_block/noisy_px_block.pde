@@ -26,7 +26,7 @@ void setup(){
 void draw(){
   background(0);  //clear the background
   new_img.loadPixels();  //load the pixel array for this file  
-  int px_block = (int)random(1, 80);  //set the block size to a random value
+  int px_block = (int)random(1, 40);  //set the block size to a random value
   int px_block_w = px_block;
   int px_block_h = px_block;
   int new_w = (int)(img_w / px_block);  //calculate new width / height based on the block size
@@ -36,20 +36,24 @@ void draw(){
   int rgb, r, g, b;
   //println("total " + total_px);
   for (int x = 0; x < img_w; x+=px_block){
-    for (int y = 0; y < img_h; y+=px_block){
-      if (x+px_block < img_w && (y+px_block) < img_h){
-        loc = x+y*img_w;
-        rgb = img.pixels[loc];  //get the argb colour value of the specified pixel
-        //int a = (argb >> 24) & 0xFF;
-        r = (rgb >> 16) & 0xFF;  // Faster way of getting red(argb)
-        g = (rgb >> 8) & 0xFF;   // Faster way of getting green(argb)
-        b = rgb & 0xFF;          // Faster way of getting blue(argb)
-        //for each pixel in the block, set the value to the one taken for the first pixle 
-        for (int bx=0;bx<px_block_w;bx++){
-          for (int by=0;by<px_block_h;by++){
-            loc = (x+bx)+(y+by)*img_w;  //use the mod of the image width / height to wrap the block around
-            new_img.pixels[loc] = color(r,g,b);  //set the pix colour value
-          }
+    for (int y = 0; y < img_h; y+=px_block){ 
+      if (x+px_block > img_w){
+        px_block_w = px_block - (x+px_block-img_w);  //reset the width px block to the remain
+      }
+      if (y+px_block > img_h){
+        px_block_h = px_block - (y+px_block-img_h);     
+      }        
+      loc = x+y*img_w;
+      rgb = img.pixels[loc];  //get the argb colour value of the specified pixel
+      //int a = (argb >> 24) & 0xFF;
+      r = (rgb >> 16) & 0xFF;  // Faster way of getting red(argb)
+      g = (rgb >> 8) & 0xFF;   // Faster way of getting green(argb)
+      b = rgb & 0xFF;          // Faster way of getting blue(argb)
+      //for each pixel in the block, set the value to the one taken for the first pixle 
+      for (int bx=0;bx<px_block_w;bx++){
+        for (int by=0;by<px_block_h;by++){
+          loc = (x+bx)+(y+by)*img_w;  //use the mod of the image width / height to wrap the block around
+          new_img.pixels[loc] = color(r,g,b);  //set the pix colour value
         }
       }
     }    
