@@ -2,7 +2,7 @@ import processing.opengl.*;
 
 boolean clear_bg_flag = true;
 int img_w = 320, img_h = 394;
-String img_file = "../data/bowl_small.jpg";
+String img_file = "../../data/bowl_small.jpg";
 PImage img, new_img;
 
 /* calculations

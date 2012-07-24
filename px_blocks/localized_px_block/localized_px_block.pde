@@ -2,7 +2,7 @@ import processing.opengl.*;
 
 //int img_w = 320, img_h = 394;
 int img_w = 640, img_h = 788;
-String img_file = "../data/bowl_small.jpg";
+String img_file = "../../data/bowl_small.jpg";
 PImage img, new_img;
 
 //this breaks the image into blocks of a specified size

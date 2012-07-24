@@ -1,7 +1,7 @@
 import processing.opengl.*;
 
 int img_w = 320, img_h = 394;
-String img_file = "../data/bowl_small.jpg";
+String img_file = "../../data/bowl_small.jpg";
 PImage orig_img, img, new_img;
 
 /* calculations
@@ -22,11 +22,8 @@ void draw(){
   background(0);  //clear the background
   img.loadPixels();  //load the pixel array for this file
   new_img.loadPixels();
-  int loc = 0, nloc = 0, total_px = img_w*img_h, rloc, bloc, gloc;
-  int omax = 100;  
-  int r_offset = (int)random(-omax, omax);
-  int g_offset = (int)random(-omax, omax);
-  int b_offset = (int)random(-omax, omax);
+  int loc = 0, nloc = 0, total_px = img_w*img_h;  
+  int offset = (int)random(10);
   for (int x = 0; x < img_w; x++){
     for (int y = 0; y < img_h; y++){
       loc = x+y*img_w;
@@ -35,19 +32,8 @@ void draw(){
       int r = (argb >> 16) & 0xFF;  // Faster way of getting red(argb)
       int g = (argb >> 8) & 0xFF;   // Faster way of getting green(argb)
       int b = argb & 0xFF;          // Faster way of getting blue(argb)
-      //get the original values at each offset
-      rloc = abs((loc+r_offset)%total_px);
-      gloc = abs((loc+g_offset)%total_px);
-      bloc = abs((loc+b_offset)%total_px);      
-      int r_argb = img.pixels[rloc];
-      int g_argb = img.pixels[gloc];
-      int b_argb = img.pixels[bloc];
-      //for the red offset, set the red value to the current pixels red value
-      //set the green and blue as normal for the pixel at the r_offset  
-      //set the new offset values    
-      new_img.pixels[rloc] = color(r, green(img.pixels[rloc]), blue(img.pixels[rloc]), a);
-      new_img.pixels[gloc] = color(red(img.pixels[gloc]), g, blue(img.pixels[gloc]), a);
-      new_img.pixels[bloc] = color(red(img.pixels[bloc]), green(img.pixels[bloc]), b, a);      
+      nloc = (loc+offset)%total_px;      
+      new_img.pixels[nloc] = color(r, g, b, a);      
     }    
   }
   img.updatePixels();  //update the pixels array
