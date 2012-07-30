@@ -1,7 +1,7 @@
 import processing.opengl.*;
 
-int img_w = 320, img_h = 394;
-String img_file = "../../data/bowl_small.jpg";
+int img_w = 0, img_h = 0;
+String img_file = "../../data/carr-kigbo-720.jpg";
 PImage orig_img, img, new_img;
 
 /* calculations
@@ -10,10 +10,11 @@ PImage orig_img, img, new_img;
  * location = x + y * width
  */
 
-void setup(){
-  //the image is in potrait size, use a canvas of these dimensions
-  size(img_w, img_h);  //setup the canvas
+void setup(){  
   orig_img = loadImage(img_file);  //load the image file
+  img_w = orig_img.width;
+  img_h = orig_img.height;  
+  size(img_w, img_h, P3D);  //setup the canvas
   img = loadImage(img_file);  //load the image file
   new_img = loadImage(img_file);  //load the image file    
 }
@@ -23,7 +24,7 @@ void draw(){
   img.loadPixels();  //load the pixel array for this file
   new_img.loadPixels();
   int loc = 0, nloc = 0, total_px = img_w*img_h, rloc, bloc, gloc;
-  int omax = 100;  
+  int omax = 10;  
   int r_offset = (int)random(-omax, omax);
   int g_offset = (int)random(-omax, omax);
   int b_offset = (int)random(-omax, omax);
